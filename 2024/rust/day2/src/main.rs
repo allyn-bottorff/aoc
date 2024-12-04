@@ -25,6 +25,12 @@ fn main() {
         .collect::<Vec<_>>()
         .len();
     println!("test safe levels: {}", safe_reports);
+    let safe_reports_pt2 = reports
+        .iter()
+        .filter(|r| is_safe_pt2(r))
+        .collect::<Vec<_>>()
+        .len();
+    println!("test safe levels: {}", safe_reports_pt2);
 
     let content = std::fs::read_to_string("data.txt").unwrap();
 
@@ -42,7 +48,14 @@ fn main() {
         .filter(|r| is_safe(r))
         .collect::<Vec<_>>()
         .len();
-    println!("safe levels: {}", safe_reports)
+    println!("safe levels: {}", safe_reports);
+
+    let safe_reports_pt2 = reports
+        .iter()
+        .filter(|r| is_safe_pt2(r))
+        .collect::<Vec<_>>()
+        .len();
+    println!("safe levels: {}", safe_reports_pt2);
 }
 
 fn is_safe(report: &[i32]) -> bool {
@@ -53,7 +66,7 @@ fn is_safe(report: &[i32]) -> bool {
         .filter(|n| n.abs() > 3 || n.abs() < 1)
         .collect();
 
-    if bad_diffs.len() > 0 {
+    if !bad_diffs.is_empty() {
         return false;
     }
 
@@ -67,4 +80,19 @@ fn is_safe(report: &[i32]) -> bool {
         return true;
     }
     false
+}
+
+fn is_safe_pt2(report: &[i32]) -> bool {
+    if is_safe(report) {
+        true
+    } else {
+        for (i, _val) in report.iter().enumerate() {
+            let mut temp_report = report.to_vec().clone();
+            temp_report.remove(i);
+            if is_safe(&temp_report) {
+                return true;
+            }
+        }
+        false
+    }
 }
