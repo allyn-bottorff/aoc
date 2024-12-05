@@ -16,21 +16,18 @@ fn main() {
         })
         .collect();
 
-    for report in &reports {
-        println!("{}", is_safe(report));
-    }
     let safe_reports = reports
         .iter()
         .filter(|r| is_safe(r))
         .collect::<Vec<_>>()
         .len();
-    println!("test safe levels: {}", safe_reports);
+    println!("test safe levels pt1: {}", safe_reports);
     let safe_reports_pt2 = reports
         .iter()
         .filter(|r| is_safe_pt2(r))
         .collect::<Vec<_>>()
         .len();
-    println!("test safe levels: {}", safe_reports_pt2);
+    println!("test safe levels pt2: {}", safe_reports_pt2);
 
     let content = std::fs::read_to_string("data.txt").unwrap();
 
@@ -48,14 +45,14 @@ fn main() {
         .filter(|r| is_safe(r))
         .collect::<Vec<_>>()
         .len();
-    println!("safe levels: {}", safe_reports);
+    println!("safe levels pt1: {}", safe_reports);
 
     let safe_reports_pt2 = reports
         .iter()
         .filter(|r| is_safe_pt2(r))
         .collect::<Vec<_>>()
         .len();
-    println!("safe levels: {}", safe_reports_pt2);
+    println!("safe levels pt2: {}", safe_reports_pt2);
 }
 
 fn is_safe(report: &[i32]) -> bool {
